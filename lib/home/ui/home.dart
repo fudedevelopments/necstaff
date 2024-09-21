@@ -1,5 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:necstaff/add_events/ui/addevents.dart';
 import 'package:necstaff/common/error_unknown.dart';
 import 'package:necstaff/home/bloc/home_bloc.dart';
@@ -8,7 +12,11 @@ import 'package:necstaff/home/ui/events_page.dart';
 import 'package:necstaff/utils.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final List<String> useratributes;
+  const MainScreen({
+    super.key,
+    required this.useratributes,
+  });
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -52,9 +60,18 @@ class _MainScreenState extends State<MainScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-            if(state is AllhomeSucessState){
-               return Column(
+            if (state is AllhomeSucessState) {
+              return Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                          "Welcome :${widget.useratributes[1]}",
+                          style: const TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                   
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -80,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
                             child: const Text('Events'),
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: TextButton(
                             onPressed: () {
@@ -108,13 +125,14 @@ class _MainScreenState extends State<MainScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  showEvents == true ?  EventsPage(
-                    events: state.events,
-                  ) : const AnnouncePage()
+                  showEvents == true
+                      ? EventsPage(
+                          events: state.events,
+                        )
+                      : const AnnouncePage()
                 ],
               );
-            }
-            else{
+            } else {
               return const ErrorUnkown();
             }
           },

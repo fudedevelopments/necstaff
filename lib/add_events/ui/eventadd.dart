@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:necstaff/add_events/bloc/addevent_bloc.dart';
 import 'package:necstaff/home/ui/home.dart';
+import 'package:necstaff/landing_page/ui/landing_page.dart';
 import 'package:necstaff/utils.dart';
 
 class EventAddlist extends StatefulWidget {
@@ -158,7 +159,7 @@ class _EventAddlistState extends State<EventAddlist> {
             listener: (context, state) {
               if (state is AddEventSuccesstate) {
                 showsnakbar(context, "Event Added SuccessFully");
-                navigatorpushandremove(context, const MainScreen());
+                navigatorpushandremove(context, const LandingPage());
               }
               if (state is AddEventFailurestate) {
                 showsnakbar(context, "Failed in Add Event");
