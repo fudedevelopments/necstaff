@@ -22,8 +22,8 @@ addevent(
       registerurl: registerurl);
   final request = ModelMutations.create(eventmodel);
   final response = await Amplify.API.mutate(request: request).response;
-  List res = graphqlresponsehandle(
-      response: response,
+  List res = graphqlResponseHandle(
+      response: [response],
       function: () {
         null;
       });

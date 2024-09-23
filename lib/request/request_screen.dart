@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:necstaff/common/error_unknown.dart';
 import 'package:necstaff/common/errorscreen.dart';
-import 'package:necstaff/request/bloc/roles_bloc.dart';
+import 'package:necstaff/request/rolebloc/roles_bloc.dart';
 import 'package:necstaff/request/ui/pages/ac_page.dart';
 import 'package:necstaff/request/ui/pages/hod_page.dart';
 import 'package:necstaff/request/ui/pages/proctor_page.dart';
@@ -51,8 +51,12 @@ class _RequestsScreenState extends State<RequestsScreen> {
               ProctorPage(
                 proctorslist: state.proctordatalist,
               ),
-              const AcademicCoordinatorPage(),
-              const HodPage(),
+               AcademicCoordinatorPage(
+                acdatalist: state.acdatalist,
+              ),
+              HodPage(
+                hoddatalist: state.hodlist,
+              ),
             ];
             return Column(
               children: [

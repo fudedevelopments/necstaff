@@ -21,7 +21,12 @@ class RolesBloc extends Bloc<RolesEvent, RolesState> {
     handlebloc(
       statuscode: res[0],
       success: () {
-        emit(GetAllStaffDetailsSuccessState(proctordatalist: res[1]));
+        emit(GetAllStaffDetailsSuccessState(
+          proctordatalist: res[1][0],
+          acdatalist: res[1][1],
+          hodlist: res[1][2]
+          )
+        );
       },
       failure: () {
         emit(GetAllStaffDetailsFailureState());

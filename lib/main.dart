@@ -12,7 +12,8 @@ import 'package:necstaff/landing_page/landiing_bloc/landing_page_bloc.dart';
 import 'package:necstaff/landing_page/ui/landing_page.dart';
 import 'package:necstaff/landing_page/userattributesbloc/userattributes_bloc.dart';
 import 'package:necstaff/models/ModelProvider.dart';
-import 'package:necstaff/request/bloc/roles_bloc.dart';
+import 'package:necstaff/request/bloc/staff_bloc.dart';
+import 'package:necstaff/request/rolebloc/roles_bloc.dart';
 
 Future<void> _configureAmplify() async {
   try {
@@ -47,6 +48,9 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => RolesBloc(),
+        ),
+        BlocProvider(
+          create: (context) => StaffBloc(),
         )
       ],
       child: const MyApp(),

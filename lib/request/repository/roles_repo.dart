@@ -4,21 +4,53 @@ import 'package:necstaff/models/ModelProvider.dart';
 import 'package:necstaff/utils.dart';
 
 getallStaffDetailsfunction(String email) async {
-  final reqproctor =
+//req proc
+  final reqProctor =
       ModelQueries.list(Proctor.classType, where: Proctor.EMAIL.eq(email));
-  final response = await Amplify.API.query(request: reqproctor).response;
-  final proctorResponse = response.data?.items;
-  List res = graphqlresponsehandle(
-    response: response,
-    function: () {
-      List<Proctor> proctordatalist = [];
-      if (proctorResponse != null) {
-        for (int i = 0; i < proctorResponse.length; i++) {
-          proctordatalist.add(proctorResponse[i]!);
+  final proctorResponse = await Amplify.API.query(request: reqProctor).response;
+//ac query
+  final reqAc = ModelQueries.list(Ac.classType, where: Ac.EMAIL.eq(email));
+  final acResponse = await Amplify.API.query(request: reqAc).response;
+//hod query
+  final reqHod = ModelQueries.list(Hod.classType, where: Hod.EMAIL.eq(email));
+  final hodResponse = await Amplify.API.query(request: reqHod).response;
+
+  List res = graphqlResponseHandle(
+      response: [proctorResponse, acResponse, hodResponse],
+      function: () {
+        // Proctor list handle
+        List<Proctor> proctorlist = [];
+        final proctorResitems = proctorResponse.data?.items;
+        if (proctorResitems != null) {
+          for (int i = 0; i < proctorResitems.length; i++) {
+            proctorlist.add(proctorResitems[i]!);
+          }
         }
-        return proctordatalist;
-      } 
-    },
-  );
+        // AC list handle
+        List<Ac> aclist = [];
+        final acResitems = acResponse.data?.items;
+        if (acResitems != null) {
+          for (int i = 0; i < acResitems.length; i++) {
+            aclist.add(acResitems[i]!);
+          }
+        }
+        // Hod list handle
+        List<Hod> hodlist = [];
+        final hodResitems = hodResponse.data?.items;
+        if (hodResitems != null) {
+          for (int i = 0; i < hodResitems.length; i++) {
+            hodlist.add(hodResitems[i]!);
+          }
+        }
+        return [proctorlist, aclist, hodlist];
+      });
   return res;
+}
+
+getallclassRoomDetailByProctorFunction(String proctorid) async {
+  final proctorclassroomrequest = ModelQueries.list(Student.classType,
+      where: Student.PROCTOR.eq(proctorid));
+  final proctorstudentresponse =
+      await Amplify.API.query(request: proctorclassroomrequest).response;
+  safePrint(proctorstudentresponse);
 }

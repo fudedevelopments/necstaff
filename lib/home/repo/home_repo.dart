@@ -6,8 +6,8 @@ import 'package:necstaff/utils.dart';
 getAllHomefunction() async {
   final request = ModelQueries.list(EventDetatils.classType);
   final response = await Amplify.API.query(request: request).response;
-  List res = graphqlresponsehandle(
-      response: response,
+  List res = graphqlResponseHandle(
+      response: [response],
       function: () {
         List<EventDetatils?>? events = response.data?.items;
         if (events != null) {

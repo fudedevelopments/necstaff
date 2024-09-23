@@ -18,7 +18,7 @@ Future<List<File>> pickImages() async {
   } catch (e) {
     debugPrint(e.toString());
   }
-  return images;
+  return images;  
 }
 
 void showsnakbar(BuildContext context, String text) {
@@ -33,21 +33,22 @@ pop(BuildContext context) {
   Navigator.pop(context);
 }
 
-List graphqlresponsehandle({
-  required GraphQLResponse response,
+List graphqlResponseHandle({
+  required List<GraphQLResponse> response,
   required Function function,
-  List? emptyListresponse,
 }) {
-  if (response.hasErrors) {
-    String error = response.errors[0].message;
-    return [500, error];
+
+  for (var res in response) {
+    if (res.hasErrors) {
+      String error = res.errors[0].message;
+      return [500, error];
+    }
   }
-  if (emptyListresponse != null && emptyListresponse.isEmpty) {
-    return [300, null];
-  } else {
-    return [200, function()];
-  }
+
+
+  return [200, function()];
 }
+
 
 void handlebloc({
   required int statuscode,
