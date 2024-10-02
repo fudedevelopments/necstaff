@@ -68,10 +68,11 @@ class _ProctorPageState extends State<ProctorPage> {
                             child: GestureDetector(
                               onTap: () {
                                 BlocProvider.of<StaffBloc>(context).add(
-                                    GetallclassRoomDetailsbyProctor(
+                                    GetAllOndutyRequestsByProctor(
                                         proctorid:
                                             widget.proctorslist[index].id));
-                                        navigationpush(context, const ProctorClassRoomDetailsScreen());
+                                navigationpush(context,
+                                    const ProctorClassRoomDetailsScreen());
                               },
                               child: ListTile(
                                 title: Text(

@@ -87,22 +87,6 @@ const amplifyConfig = '''{
               "isRequired": false,
               "attributes": []
             },
-            "ondutyrequest": {
-              "name": "ondutyrequest",
-              "isArray": true,
-              "type": {
-                "model": "Ondutyrequest"
-              },
-              "isRequired": false,
-              "attributes": [],
-              "isArrayNullable": true,
-              "association": {
-                "connectionType": "HAS_MANY",
-                "associatedWith": [
-                  "eventid"
-                ]
-              }
-            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -248,6 +232,22 @@ const amplifyConfig = '''{
                 ]
               }
             },
+            "ondutyrequests": {
+              "name": "ondutyrequests",
+              "isArray": true,
+              "type": {
+                "model": "Ondutyrequest"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "classRoomid"
+                ]
+              }
+            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -282,7 +282,8 @@ const amplifyConfig = '''{
                     "allow": "groups",
                     "groups": [
                       "ADMINS",
-                      "STAFF"
+                      "STAFF",
+                      "STUDENTS"
                     ],
                     "operations": [
                       "create",
@@ -389,6 +390,17 @@ const amplifyConfig = '''{
                       "delete",
                       "read"
                     ]
+                  },
+                  {
+                    "groupClaim": "cognito:groups",
+                    "provider": "userPools",
+                    "allow": "groups",
+                    "operations": [
+                      "read"
+                    ],
+                    "groups": [
+                      "STUDENTS"
+                    ]
                   }
                 ]
               }
@@ -488,6 +500,17 @@ const amplifyConfig = '''{
                       "delete",
                       "read"
                     ]
+                  },
+                  {
+                    "groupClaim": "cognito:groups",
+                    "provider": "userPools",
+                    "allow": "groups",
+                    "operations": [
+                      "read"
+                    ],
+                    "groups": [
+                      "STUDENTS"
+                    ]
                   }
                 ]
               }
@@ -561,6 +584,22 @@ const amplifyConfig = '''{
                 ]
               }
             },
+            "ondutyrequests": {
+              "name": "ondutyrequests",
+              "isArray": true,
+              "type": {
+                "model": "Ondutyrequest"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "proctorid"
+                ]
+              }
+            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -595,7 +634,8 @@ const amplifyConfig = '''{
                     "allow": "groups",
                     "groups": [
                       "ADMINS",
-                      "STAFF"
+                      "STAFF",
+                      "STUDENTS"
                     ],
                     "operations": [
                       "create",
@@ -682,6 +722,22 @@ const amplifyConfig = '''{
                 ]
               }
             },
+            "onduty": {
+              "name": "onduty",
+              "isArray": true,
+              "type": {
+                "model": "Ondutyrequest"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": [
+                  "studentid"
+                ]
+              }
+            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,
@@ -716,7 +772,8 @@ const amplifyConfig = '''{
                     "allow": "groups",
                     "groups": [
                       "ADMINS",
-                      "STAFF"
+                      "STAFF",
+                      "STUDENTS"
                     ],
                     "operations": [
                       "create",
@@ -752,32 +809,153 @@ const amplifyConfig = '''{
               "isRequired": false,
               "attributes": []
             },
-            "email": {
-              "name": "email",
+            "description": {
+              "name": "description",
               "isArray": false,
-              "type": "AWSEmail",
+              "type": "String",
               "isRequired": false,
               "attributes": []
             },
-            "eventid": {
-              "name": "eventid",
+            "date": {
+              "name": "date",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "location": {
+              "name": "location",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "registerUrl": {
+              "name": "registerUrl",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "documets": {
+              "name": "documets",
+              "isArray": true,
+              "type": "String",
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true
+            },
+            "proctorApproval": {
+              "name": "proctorApproval",
+              "isArray": false,
+              "type": {
+                "enum": "Status"
+              },
+              "isRequired": false,
+              "attributes": []
+            },
+            "proctorComments": {
+              "name": "proctorComments",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "acApproval": {
+              "name": "acApproval",
+              "isArray": false,
+              "type": {
+                "enum": "Status"
+              },
+              "isRequired": false,
+              "attributes": []
+            },
+            "acComments": {
+              "name": "acComments",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "hodApproval": {
+              "name": "hodApproval",
+              "isArray": false,
+              "type": {
+                "enum": "Status"
+              },
+              "isRequired": false,
+              "attributes": []
+            },
+            "hodComments": {
+              "name": "hodComments",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "studentid": {
+              "name": "studentid",
               "isArray": false,
               "type": "ID",
               "isRequired": false,
               "attributes": []
             },
-            "events": {
-              "name": "events",
+            "student": {
+              "name": "student",
               "isArray": false,
               "type": {
-                "model": "EventDetatils"
+                "model": "Student"
               },
               "isRequired": false,
               "attributes": [],
               "association": {
                 "connectionType": "BELONGS_TO",
                 "targetNames": [
-                  "eventid"
+                  "studentid"
+                ]
+              }
+            },
+            "classRoomid": {
+              "name": "classRoomid",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": false,
+              "attributes": []
+            },
+            "classRoom": {
+              "name": "classRoom",
+              "isArray": false,
+              "type": {
+                "model": "ClassRoom"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": [
+                  "classRoomid"
+                ]
+              }
+            },
+            "proctorid": {
+              "name": "proctorid",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": false,
+              "attributes": []
+            },
+            "proctor": {
+              "name": "proctor",
+              "isArray": false,
+              "type": {
+                "model": "Proctor"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": [
+                  "proctorid"
                 ]
               }
             },
@@ -815,7 +993,8 @@ const amplifyConfig = '''{
                     "allow": "groups",
                     "groups": [
                       "ADMINS",
-                      "STAFF"
+                      "STAFF",
+                      "STUDENTS"
                     ],
                     "operations": [
                       "create",
@@ -835,7 +1014,16 @@ const amplifyConfig = '''{
           }
         }
       },
-      "enums": {},
+      "enums": {
+        "Status": {
+          "name": "Status",
+          "values": [
+            "APPROVED",
+            "REJECTED",
+            "PENDING"
+          ]
+        }
+      },
       "nonModels": {},
       "queries": {
         "listUsersInGroup": {
@@ -934,5 +1122,11 @@ const amplifyConfig = '''{
       }
     ]
   },
-  "version": "1.1"
+  "version": "1.1",
+  "analytics": {
+    "amazon_pinpoint": {
+      "app_id": "cf7e67dd587d45de80aaa290149d4b67",
+      "aws_region": "ap-south-1"
+    }
+  }
 }''';

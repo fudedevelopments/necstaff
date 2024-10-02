@@ -1,3 +1,4 @@
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:necstaff/add_events/bloc/addevent_bloc.dart';
 import 'package:necstaff/amplify_outputs.dart';
+import 'package:necstaff/firebase/firebase_api.dart';
 import 'package:necstaff/home/bloc/home_bloc.dart';
 import 'package:necstaff/landing_page/landiing_bloc/landing_page_bloc.dart';
 import 'package:necstaff/landing_page/ui/landing_page.dart';
@@ -21,9 +23,10 @@ Future<void> _configureAmplify() async {
     final api = AmplifyAPI(
         options: APIPluginOptions(modelProvider: ModelProvider.instance));
     final storage = AmplifyStorageS3();
-    await Amplify.addPlugins([auth, api, storage]);
+    final analyticsPinPoint = AmplifyAnalyticsPinpoint();
+    await Amplify.addPlugins([auth, api, storage, analyticsPinPoint]);
     await Amplify.configure(amplifyConfig);
-  } on Exception catch (e) {
+  } on AmplifyException catch (e) {
     safePrint('Error configuring Amplify: $e');
   }
 }

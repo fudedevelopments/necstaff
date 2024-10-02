@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,16 +41,21 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
-          title: const Text(
-            "NEC STAFF",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: const Center(
+            child: Text(
+              'NEC STAFF',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(15))),
-          centerTitle: true,
-          backgroundColor: Colors.orangeAccent.shade200,
-          elevation: 1,
-          shadowColor: Colors.black87,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.orange, Color.fromARGB(255, 212, 197, 61)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
         ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
@@ -67,11 +71,10 @@ class _MainScreenState extends State<MainScreen> {
                     height: 10,
                   ),
                   Text(
-                          "Welcome :${widget.useratributes[1]}",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
-                   
+                    "Welcome :${widget.useratributes[1]}",
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(

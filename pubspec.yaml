@@ -47,7 +47,6 @@ dependencies:
   dotted_border: ^2.1.0 
   flare_flutter: ^3.0.2
   font_awesome_flutter: ^10.7.0
-  cloudinary_public: ^0.23.1
   photo_view: ^0.15.0
   amplify_flutter: ^2.2.0
   amplify_auth_cognito: ^2.2.0
@@ -58,6 +57,11 @@ dependencies:
   aws_common: ^0.7.3
   carousel_slider: ^5.0.0
   flutter_spinkit: ^5.2.1
+  firebase_core: ^3.4.0
+  firebase_messaging: ^15.1.0
+  amplify_analytics_pinpoint: ^2.4.1
+  path_provider: ^2.1.4
+  flutter_local_notifications: ^17.2.3
 
 dev_dependencies:
   flutter_test:

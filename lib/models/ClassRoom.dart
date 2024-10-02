@@ -33,6 +33,7 @@ class ClassRoom extends amplify_core.Model {
   final List<Ac>? _ac;
   final List<Proctor>? _proctors;
   final List<Student>? _students;
+  final List<Ondutyrequest>? _ondutyrequests;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -69,6 +70,10 @@ class ClassRoom extends amplify_core.Model {
     return _students;
   }
   
+  List<Ondutyrequest>? get ondutyrequests {
+    return _ondutyrequests;
+  }
+  
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -77,16 +82,17 @@ class ClassRoom extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const ClassRoom._internal({required this.id, classRoomname, hod, ac, proctors, students, createdAt, updatedAt}): _classRoomname = classRoomname, _hod = hod, _ac = ac, _proctors = proctors, _students = students, _createdAt = createdAt, _updatedAt = updatedAt;
+  const ClassRoom._internal({required this.id, classRoomname, hod, ac, proctors, students, ondutyrequests, createdAt, updatedAt}): _classRoomname = classRoomname, _hod = hod, _ac = ac, _proctors = proctors, _students = students, _ondutyrequests = ondutyrequests, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory ClassRoom({String? id, String? classRoomname, List<Hod>? hod, List<Ac>? ac, List<Proctor>? proctors, List<Student>? students}) {
+  factory ClassRoom({String? id, String? classRoomname, List<Hod>? hod, List<Ac>? ac, List<Proctor>? proctors, List<Student>? students, List<Ondutyrequest>? ondutyrequests}) {
     return ClassRoom._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       classRoomname: classRoomname,
       hod: hod != null ? List<Hod>.unmodifiable(hod) : hod,
       ac: ac != null ? List<Ac>.unmodifiable(ac) : ac,
       proctors: proctors != null ? List<Proctor>.unmodifiable(proctors) : proctors,
-      students: students != null ? List<Student>.unmodifiable(students) : students);
+      students: students != null ? List<Student>.unmodifiable(students) : students,
+      ondutyrequests: ondutyrequests != null ? List<Ondutyrequest>.unmodifiable(ondutyrequests) : ondutyrequests);
   }
   
   bool equals(Object other) {
@@ -102,7 +108,8 @@ class ClassRoom extends amplify_core.Model {
       DeepCollectionEquality().equals(_hod, other._hod) &&
       DeepCollectionEquality().equals(_ac, other._ac) &&
       DeepCollectionEquality().equals(_proctors, other._proctors) &&
-      DeepCollectionEquality().equals(_students, other._students);
+      DeepCollectionEquality().equals(_students, other._students) &&
+      DeepCollectionEquality().equals(_ondutyrequests, other._ondutyrequests);
   }
   
   @override
@@ -122,14 +129,15 @@ class ClassRoom extends amplify_core.Model {
     return buffer.toString();
   }
   
-  ClassRoom copyWith({String? classRoomname, List<Hod>? hod, List<Ac>? ac, List<Proctor>? proctors, List<Student>? students}) {
+  ClassRoom copyWith({String? classRoomname, List<Hod>? hod, List<Ac>? ac, List<Proctor>? proctors, List<Student>? students, List<Ondutyrequest>? ondutyrequests}) {
     return ClassRoom._internal(
       id: id,
       classRoomname: classRoomname ?? this.classRoomname,
       hod: hod ?? this.hod,
       ac: ac ?? this.ac,
       proctors: proctors ?? this.proctors,
-      students: students ?? this.students);
+      students: students ?? this.students,
+      ondutyrequests: ondutyrequests ?? this.ondutyrequests);
   }
   
   ClassRoom copyWithModelFieldValues({
@@ -137,7 +145,8 @@ class ClassRoom extends amplify_core.Model {
     ModelFieldValue<List<Hod>?>? hod,
     ModelFieldValue<List<Ac>?>? ac,
     ModelFieldValue<List<Proctor>?>? proctors,
-    ModelFieldValue<List<Student>?>? students
+    ModelFieldValue<List<Student>?>? students,
+    ModelFieldValue<List<Ondutyrequest>?>? ondutyrequests
   }) {
     return ClassRoom._internal(
       id: id,
@@ -145,7 +154,8 @@ class ClassRoom extends amplify_core.Model {
       hod: hod == null ? this.hod : hod.value,
       ac: ac == null ? this.ac : ac.value,
       proctors: proctors == null ? this.proctors : proctors.value,
-      students: students == null ? this.students : students.value
+      students: students == null ? this.students : students.value,
+      ondutyrequests: ondutyrequests == null ? this.ondutyrequests : ondutyrequests.value
     );
   }
   
@@ -204,11 +214,24 @@ class ClassRoom extends amplify_core.Model {
               .map((e) => Student.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
               .toList()
           : null),
+      _ondutyrequests = json['ondutyrequests']  is Map
+        ? (json['ondutyrequests']['items'] is List
+          ? (json['ondutyrequests']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Ondutyrequest.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['ondutyrequests'] is List
+          ? (json['ondutyrequests'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Ondutyrequest.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
       _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'classRoomname': _classRoomname, 'hod': _hod?.map((Hod? e) => e?.toJson()).toList(), 'ac': _ac?.map((Ac? e) => e?.toJson()).toList(), 'proctors': _proctors?.map((Proctor? e) => e?.toJson()).toList(), 'students': _students?.map((Student? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'classRoomname': _classRoomname, 'hod': _hod?.map((Hod? e) => e?.toJson()).toList(), 'ac': _ac?.map((Ac? e) => e?.toJson()).toList(), 'proctors': _proctors?.map((Proctor? e) => e?.toJson()).toList(), 'students': _students?.map((Student? e) => e?.toJson()).toList(), 'ondutyrequests': _ondutyrequests?.map((Ondutyrequest? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -218,6 +241,7 @@ class ClassRoom extends amplify_core.Model {
     'ac': _ac,
     'proctors': _proctors,
     'students': _students,
+    'ondutyrequests': _ondutyrequests,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
@@ -237,6 +261,9 @@ class ClassRoom extends amplify_core.Model {
   static final STUDENTS = amplify_core.QueryField(
     fieldName: "students",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Student'));
+  static final ONDUTYREQUESTS = amplify_core.QueryField(
+    fieldName: "ondutyrequests",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Ondutyrequest'));
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "ClassRoom";
     modelSchemaDefinition.pluralName = "ClassRooms";
@@ -245,7 +272,7 @@ class ClassRoom extends amplify_core.Model {
       amplify_core.AuthRule(
         authStrategy: amplify_core.AuthStrategy.GROUPS,
         groupClaim: "cognito:groups",
-        groups: [ "ADMINS", "STAFF" ],
+        groups: [ "ADMINS", "STAFF", "STUDENTS" ],
         provider: amplify_core.AuthRuleProvider.USERPOOLS,
         operations: const [
           amplify_core.ModelOperation.CREATE,
@@ -289,6 +316,13 @@ class ClassRoom extends amplify_core.Model {
       isRequired: false,
       ofModelName: 'Student',
       associatedKey: Student.CLASSROOM
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+      key: ClassRoom.ONDUTYREQUESTS,
+      isRequired: false,
+      ofModelName: 'Ondutyrequest',
+      associatedKey: Ondutyrequest.CLASSROOM
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(

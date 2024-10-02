@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "427725112248",
+    "project_id": "necstaff-amplify",
+    "storage_bucket": "necstaff-amplify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427725112248:android:b3ba95fa242c7511d4854d",
+        "android_client_info": {
+          "package_name": "com.example.necstaff"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtdXV8TCF6edTZlfd45PE0AMAHir9OWgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

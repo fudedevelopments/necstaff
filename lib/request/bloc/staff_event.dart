@@ -4,9 +4,9 @@ part of 'staff_bloc.dart';
 @immutable
 sealed class StaffEvent {}
 
-class GetallclassRoomDetailsbyProctor extends StaffEvent {
+class GetAllOndutyRequestsByProctor extends StaffEvent {
   final String proctorid;
-  GetallclassRoomDetailsbyProctor({
+  GetAllOndutyRequestsByProctor({
     required this.proctorid,
   });
 }

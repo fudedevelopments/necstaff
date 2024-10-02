@@ -54,3 +54,18 @@ getallclassRoomDetailByProctorFunction(String proctorid) async {
       await Amplify.API.query(request: proctorclassroomrequest).response;
   safePrint(proctorstudentresponse);
 }
+
+getllOndutyrequestByProctorFunction(String proctorid) async {
+  final proctorondutyrequest = ModelQueries.list<Ondutyrequest>(
+      Ondutyrequest.classType,
+      where: Ondutyrequest.PROCTOR.eq(proctorid));
+  final response =
+      await Amplify.API.query(request: proctorondutyrequest).response;
+  List res = graphqlResponseHandle(
+      response: [response],
+      function: () {
+        final ondutylist = response.data?.items ?? [];
+        return ondutylist;
+      });
+  return res;
+}
